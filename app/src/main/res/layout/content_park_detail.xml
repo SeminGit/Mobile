@@ -11,13 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/button9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.2"
-            android:text="Button" />
-
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,16 +37,13 @@
 
 
             <include
-                android:id="@+id/include"
                 layout="@layout/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="1dp"
-                android:layout_marginLeft="1dp"
-                android:layout_marginTop="170dp" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/include" />
 
             <ImageView
                 android:layout_width="50dp"

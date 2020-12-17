@@ -138,7 +138,7 @@ public class AttractionsActivity extends AppCompatActivity
     public void onSightClick(int id) {
         Intent intent = new Intent(this, AttractionsDetailActivity.class);
         intent.putExtra("id",id);
-        startActivityForResult(intent,3);
+        startActivity(intent);
     }
 
     public void createSight(View view) {
@@ -147,11 +147,8 @@ public class AttractionsActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == 2){
-            super.onActivityResult(requestCode, resultCode, data);
-            ToastService.showToast(this, "UPDATED DATA");
-        }
-
+        super.onActivityResult(requestCode, resultCode, data);
         startActivityForResult(new Intent(this, AttractionsActivity.class), 2);
+        ToastService.showToast(this, "UPDATED DATA");
     }
 }
