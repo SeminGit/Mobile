@@ -11,7 +11,7 @@
         android:label=""
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddNewItem"></activity>
+        <activity android:name=".AddHotel"></activity>
 
         <receiver
             android:name=".ToastBroadCastReciever"

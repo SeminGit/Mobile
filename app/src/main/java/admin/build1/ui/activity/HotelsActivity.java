@@ -1,13 +1,10 @@
 package admin.build1.ui.activity;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -30,11 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import admin.build1.AddNewItem;
+import admin.build1.AddHotel;
 import admin.build1.R;
 import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaCursorLoader1;
@@ -186,12 +179,16 @@ public class HotelsActivity extends AppCompatActivity
     }
 
     public void addHotel(View view) {
-        Intent createItemIntent = new Intent(this, AddNewItem.class);
+        Intent createItemIntent = new Intent(this, AddHotel.class);
 
         createItemIntent.putExtra("itemType", "hotel");
 
-        startActivity(createItemIntent);
-
-        ToastService.showToast(this, "BUTTON CLICKED");
+        startActivityForResult(createItemIntent, 1);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        startActivity(new Intent(this, HotelsActivity.class));
+        ToastService.showToast(this, "UPDATE DATA");
     }
 }

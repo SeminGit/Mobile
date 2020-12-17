@@ -1,20 +1,20 @@
 package admin.build1;
 
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaDatabaseHelper;
 
-public class AddNewItem extends AppCompatActivity {
+public class AddHotel extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_item);
+        setContentView(R.layout.activity_add_hotel);
 
     }
 
@@ -57,6 +57,8 @@ public class AddNewItem extends AppCompatActivity {
                 break;
             }
         }
+        setResult(1, new Intent());
+        finish();
 
     }
 }
