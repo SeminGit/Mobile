@@ -16,11 +16,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 
 import admin.build1.R;
+import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaDatabaseHelper;
 
 public class AttractionsDetailActivity extends AppCompatActivity {
 
-
+    private int sightId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class AttractionsDetailActivity extends AppCompatActivity {
 
             Intent intent = getIntent();
             int id = intent.getIntExtra("id", 1);
+            sightId = id;
             SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
             SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
             Cursor cursor = db.query("SIGHTS",
@@ -67,7 +69,7 @@ public class AttractionsDetailActivity extends AppCompatActivity {
             SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
             SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
             Cursor cursor = db.query("SIGHTS",
-                    new String[]{"SHORT", "LONG", "CONTACTS", "FACTS","LATITUDE","LONGITUDE"}, "_id = ?",
+                    new String[]{"SHORT", "LONG", "CONTACTS", "FACTS", "LATITUDE", "LONGITUDE"}, "_id = ?",
                     new String[]{Integer.toString(id)}, null, null, null);
 
             if (cursor.moveToFirst()) {
@@ -106,5 +108,15 @@ public class AttractionsDetailActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    public void deleteSight(View view) {
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
+        TraveliaDatabaseHelper dbHelper = new TraveliaDatabaseHelper(this);
+
+        dbHelper.deleteById(db, "SIGHTS", sightId);
+
+        setResult(3, new Intent());
+        finish();
     }
 }

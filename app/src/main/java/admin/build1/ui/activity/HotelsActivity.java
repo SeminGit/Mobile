@@ -40,6 +40,7 @@ public class HotelsActivity extends AppCompatActivity
         HotelsAdapter.HotelsOnClickListener {
 
     private static final int HOTELS_LOADER_ID = 1;
+    private int selectedId = 0;
 
     private RecyclerView mRecycler;
 
@@ -150,6 +151,7 @@ public class HotelsActivity extends AppCompatActivity
             Cursor cursor = db.query("HOTELS",
                     new String[]{"NAME", "CONTACTS", "IMAGE_RESOURCE_ID2"}, "_id = ?",
                     new String[]{Integer.toString(id)}, null, null, null);
+            selectedId = id;
             if (cursor.moveToFirst()) {
                 String name = cursor.getString(0);
                 String text = cursor.getString(1);
@@ -190,5 +192,15 @@ public class HotelsActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         startActivity(new Intent(this, HotelsActivity.class));
         ToastService.showToast(this, "UPDATE DATA");
+    }
+
+    public void deleteHotel(View view) {
+
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
+        TraveliaDatabaseHelper dbHelper = new TraveliaDatabaseHelper(this);
+
+        dbHelper.deleteById(db, "HOTELS", selectedId);
+        startActivity(new Intent(this, HotelsActivity.class));
+
     }
 }

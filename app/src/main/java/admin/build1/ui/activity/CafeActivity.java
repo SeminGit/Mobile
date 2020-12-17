@@ -44,6 +44,7 @@ public class CafeActivity extends AppCompatActivity
     private static final int CAFE_LOADER_ID = 1;
 
     private RecyclerView mRecycler;
+    private int selectedId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,8 @@ public class CafeActivity extends AppCompatActivity
     @Override
     public void onCafeClick(int id) {
 
+        selectedId = id;
+
         try {
             SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
             SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
@@ -146,7 +149,7 @@ public class CafeActivity extends AppCompatActivity
                 String text = cursor.getString(1);
                 int photoId = cursor.getInt(2);
                 LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.card_hotels,
+                View layout = inflater.inflate(R.layout.card_cafe,
                         (ViewGroup)findViewById(R.id.layout));
                 TextView namehotels = (TextView)layout.findViewById(R.id.text_card1);
                 namehotels.setText(name);
@@ -167,5 +170,15 @@ public class CafeActivity extends AppCompatActivity
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    public void deleteCafe(View view) {
+
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
+        TraveliaDatabaseHelper dbHelper = new TraveliaDatabaseHelper(this);
+
+        dbHelper.deleteById(db, "CAFE", selectedId);
+        startActivity(new Intent(this, CafeActivity.class));
+
     }
 }

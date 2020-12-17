@@ -50,6 +50,7 @@ public class TaxiActivity extends AppCompatActivity
 
     private RecyclerView mRecycler;
     private String Contacts_Phone;
+    private int selectedId;
 
 
     @Override
@@ -151,6 +152,7 @@ public class TaxiActivity extends AppCompatActivity
 
     @Override
     public void onTaxiClick(int id) {
+        selectedId = id;
         try {
             SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
             SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
@@ -162,13 +164,13 @@ public class TaxiActivity extends AppCompatActivity
                 String text = cursor.getString(1);
                 int photoId = cursor.getInt(2);
                 LayoutInflater inflater = getLayoutInflater();
-                View layout = inflater.inflate(R.layout.card_cafe,
+                View layout = inflater.inflate(R.layout.card_taxi,
                         (ViewGroup)findViewById(R.id.layout));
-                TextView namehotels = (TextView)layout.findViewById(R.id.textname11);
+                TextView namehotels = (TextView)layout.findViewById(R.id.text_card1);
                 namehotels.setText(name);
-                TextView texthotels = (TextView)layout.findViewById(R.id.text11);
+                TextView texthotels = (TextView)layout.findViewById(R.id.text_card);
                 texthotels.setText(text);
-                ImageView imagehotels = (ImageView)layout.findViewById(R.id.image11);
+                ImageView imagehotels = (ImageView)layout.findViewById(R.id.image_card);
                 imagehotels.setImageResource(photoId);
 
                 AlertDialog.Builder builder= new AlertDialog.Builder(this);
@@ -215,4 +217,13 @@ public class TaxiActivity extends AppCompatActivity
         BroadCastService.fireShowToastBroadCast(this, "Taxi ");
     }
 
+    public void deleteTaxi(View view) {
+
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
+        TraveliaDatabaseHelper dbHelper = new TraveliaDatabaseHelper(this);
+
+        dbHelper.deleteById(db, "TAXI", selectedId);
+        startActivity(new Intent(this, TaxiActivity.class));
+
+    }
 }

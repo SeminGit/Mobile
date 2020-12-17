@@ -28,6 +28,8 @@ import admin.build1.database.TraveliaDatabaseHelper;
 public class ParkDetailActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
+    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +48,9 @@ public class ParkDetailActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         try {
-
             Intent intent = getIntent();
             int id = intent.getIntExtra("id", 1);
+            this.id = id;
             SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
             SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
             Cursor cursor = db.query("PARKS",
