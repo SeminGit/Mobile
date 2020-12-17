@@ -19,7 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import admin.build1.AddHotel;
+import admin.build1.AddSight;
 import admin.build1.R;
+import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaCursorLoader;
 import admin.build1.database.TraveliaDatabaseHelper;
 import admin.build1.ui.adapter.SightsAdapter;
@@ -136,5 +139,16 @@ public class AttractionsActivity extends AppCompatActivity
         Intent intent = new Intent(this, AttractionsDetailActivity.class);
         intent.putExtra("id",id);
         startActivity(intent);
+    }
+
+    public void createSight(View view) {
+        startActivityForResult(new Intent(this, AddSight.class), 2);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        startActivityForResult(new Intent(this, AttractionsActivity.class), 2);
+        ToastService.showToast(this, "UPDATED DATA");
     }
 }

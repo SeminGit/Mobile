@@ -27,36 +27,13 @@ public class AddHotel extends AppCompatActivity {
         TextView contactView = (TextView) findViewById(R.id.newItemContacts);
         String contact = contactView.getText().toString();
 
-        String itemType = getIntent().getStringExtra("itemType");
-
         TraveliaDatabaseHelper databaseService = TraveliaDatabaseHelper.getInstance(this);
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
 
         int kittyImageId = R.drawable.kitty;
 
-        switch (itemType) {
-            case "hotel":
-            {
-                databaseService.insertHotel(db, name, contact,kittyImageId,kittyImageId);
-                break;
-            }
-            case "sight": {
-                databaseService.insertSight(db, name, "","", contact, "", 0, 0, kittyImageId);
-                break;
-            }
-            case "coffee": {
-                databaseService.insertCafe(db, name, contact, kittyImageId, kittyImageId);
-                break;
-            }
-            case "taxi": {
-                databaseService.insertTaxi(db, name, "111", "111", contact, kittyImageId);
-                break;
-            }
-            case "park": {
-                databaseService.insertPark(db, name, "park is awesome", 0, 0, kittyImageId);
-                break;
-            }
-        }
+        databaseService.insertHotel(db, name, contact,kittyImageId,kittyImageId);
+
         setResult(1, new Intent());
         finish();
 

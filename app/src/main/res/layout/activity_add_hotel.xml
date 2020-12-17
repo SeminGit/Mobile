@@ -28,7 +28,7 @@
         android:layout_width="391dp"
         android:layout_height="59dp"
         android:onClick="addItem"
-        android:text="Button"
+        android:text="Create"
         app:layout_constraintTop_toBottomOf="@+id/newItemContacts"
         tools:layout_editor_absoluteX="-1dp" />
 
