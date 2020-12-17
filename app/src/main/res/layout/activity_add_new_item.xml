@@ -29,7 +29,7 @@
         android:layout_height="59dp"
         android:onClick="addItem"
         android:text="Button"
-        app:layout_constraintTop_toBottomOf="@+id/newItemContactsLabel"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
         tools:layout_editor_absoluteX="4dp" />
 
     <EditText
@@ -41,4 +41,15 @@
         android:text="Name"
         app:layout_constraintTop_toBottomOf="@+id/newItemNameLabel"
         tools:layout_editor_absoluteX="2dp" />
+
+    <EditText
+        android:id="@+id/newItemContacts"
+        android:layout_width="392dp"
+        android:layout_height="46dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Contacts"
+        tools:layout_editor_absoluteX="3dp"
+        tools:layout_editor_absoluteY="153dp" />
+
 </android.support.constraint.ConstraintLayout>
