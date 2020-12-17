@@ -188,7 +188,7 @@ public class HotelsActivity extends AppCompatActivity
     public void addHotel(View view) {
         Intent createItemIntent = new Intent(this, AddNewItem.class);
 
-        createItemIntent.putExtra("testValue", "testValue");
+        createItemIntent.putExtra("itemType", "hotel");
 
         startActivity(createItemIntent);
 

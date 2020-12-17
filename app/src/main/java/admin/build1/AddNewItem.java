@@ -29,13 +29,14 @@ public class AddNewItem extends AppCompatActivity {
             case "hotel":
             {
                 TraveliaDatabaseHelper databaseService = TraveliaDatabaseHelper.getInstance(this);
-                SQLiteDatabase db = ();
-                database.insertHotel(database,);
+                SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
+                databaseService.insertHotel(db, name.getText().toString(), "",0,0);
+                ToastService.showToast(this, "Record was created?");
+
                 break;
             }
         }
 
-        ToastService.showToast(this, name.getText().toString());
 
     }
 }
