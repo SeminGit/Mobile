@@ -157,4 +157,15 @@ public class ParkDetailActivity extends AppCompatActivity
         return true;
     }
 
+    public void deletePark(View view) {
+
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
+        TraveliaDatabaseHelper dbHelper = new TraveliaDatabaseHelper(this);
+
+        dbHelper.deleteById(db, "PARKS", this.id);
+
+        setResult(4, new Intent());
+        finish();
+
+    }
 }

@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import admin.build1.R;
+import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaCursorLoaderPark;
 import admin.build1.database.TraveliaDatabaseHelper;
 import admin.build1.ui.adapter.ParkAdapter;
@@ -82,16 +83,16 @@ public class ParkActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_attractions) {
-            Intent intent = new Intent(this,AttractionsActivity.class);
+            Intent intent = new Intent(this, AttractionsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_hotels) {
-            Intent intent1 = new Intent(this,HotelsActivity.class);
+            Intent intent1 = new Intent(this, HotelsActivity.class);
             startActivity(intent1);
         } else if (id == R.id.nav_cafe) {
-            Intent intent3 = new Intent(this,CafeActivity.class);
+            Intent intent3 = new Intent(this, CafeActivity.class);
             startActivity(intent3);
         } else if (id == R.id.nav_sundry) {
-            Intent intent2 = new Intent(this,SundryActivity.class);
+            Intent intent2 = new Intent(this, SundryActivity.class);
             startActivity(intent2);
         } else if (id == R.id.nav_map) {
             Intent intent4 = new Intent(Intent.ACTION_VIEW);
@@ -133,10 +134,20 @@ public class ParkActivity extends AppCompatActivity
     }
 
     @Override
-    public void onParkClick (int id) {
+    public void onParkClick(int id) {
         Intent intent = new Intent(this, ParkDetailActivity.class);
-        intent.putExtra("id",id);
-        startActivity(intent);
+
+        intent.putExtra("id", id);
+
+        startActivityForResult(intent, 4);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ToastService.showToast(this, "UPDATED DATA");
+
+        startActivityForResult(new Intent(this, ParkActivity.class), 4);
     }
 
 }

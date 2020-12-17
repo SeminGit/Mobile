@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1.2"
-            android:text="Button" />
+            android:text="DELETE"
+            />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -66,7 +67,19 @@
                 android:src="@drawable/black"
                 android:onClick="onMap"/>
 
+            <Button
+                android:id="@+id/button17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="deletePark"
+                android:text="DELETE" />
+
         </RelativeLayout>
+
+        <include
+            layout="@layout/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -106,13 +119,6 @@
         </RelativeLayout>
 
     </LinearLayout>
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true" />
 
 </RelativeLayout>
 
