@@ -30,11 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import admin.build1.R;
+import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaCursorLoader1;
 import admin.build1.database.TraveliaCursorLoader3;
 import admin.build1.database.TraveliaDatabaseHelper;
 import admin.build1.ui.adapter.CafeAdapter;
 import admin.build1.ui.adapter.HotelsAdapter;
+import admin.build1.ui.adapter.SightsAdapter;
 
 public class CafeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -179,6 +181,27 @@ public class CafeActivity extends AppCompatActivity
 
         dbHelper.deleteById(db, "CAFE", selectedId);
         startActivity(new Intent(this, CafeActivity.class));
+
+    }
+
+    public void searchClick2(View view) {
+
+        SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
+        SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
+
+        TextView searchText = (TextView) findViewById(R.id.searchHotelText);
+        String search = searchText.getText().toString();
+
+        TraveliaDatabaseHelper.insertCafe(db, "Name", "text contact", R.drawable.kitty, R.drawable.kitty);
+
+        try{
+            Cursor cursor = db.rawQuery("SELECT * FROM CAFE WHERE Name LIKE ?",new String[]{"%" + search + "%"});
+            ToastService.showToast(this, String.valueOf(cursor.getCount()));
+            mRecycler.setAdapter(new CafeAdapter(cursor, this));
+        }catch (Exception e){
+            ToastService.showToast(this, e.getMessage());
+        }
+        //getSupportLoaderManager().initLoader(HOTELS_LOADER_ID, null, null);
 
     }
 }

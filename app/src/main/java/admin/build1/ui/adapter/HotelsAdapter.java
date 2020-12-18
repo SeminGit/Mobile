@@ -15,8 +15,8 @@ import admin.build1.R;
  */
 public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelsViewHolder> {
 
-    private final Cursor mCursor;
-    private final HotelsOnClickListener mListener;
+    private Cursor mCursor;
+    private HotelsOnClickListener mListener;
 
     public HotelsAdapter(Cursor cursor, HotelsOnClickListener listener) {
         mCursor = cursor;
@@ -69,7 +69,14 @@ public class HotelsAdapter extends RecyclerView.Adapter<HotelsAdapter.HotelsView
         }
 
     }
+
     public interface HotelsOnClickListener {
         void onHotelsClick(int id);
     }
+
+    public void swapCursor(Cursor cursor) {
+        this.mCursor.close();
+        this.mCursor = cursor;
+    }
+
 }

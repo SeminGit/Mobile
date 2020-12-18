@@ -36,9 +36,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import admin.build1.R;
 import admin.build1.Services.BroadCastService;
+import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaCursorLoader2;
 import admin.build1.database.TraveliaDatabaseHelper;
 
+import admin.build1.ui.adapter.ParkAdapter;
 import admin.build1.ui.adapter.TaxiAdapter;
 
 
@@ -226,4 +228,26 @@ public class TaxiActivity extends AppCompatActivity
         startActivity(new Intent(this, TaxiActivity.class));
 
     }
+
+    public void searchClick2(View view) {
+
+        SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
+        SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
+
+        TextView searchText = (TextView) findViewById(R.id.searchHotelText);
+        String search = searchText.getText().toString();
+
+        TraveliaDatabaseHelper.insertTaxi(db,"test","num","num","cont", 0);
+
+        try{
+            Cursor cursor = db.rawQuery("SELECT * FROM TAXI WHERE Name LIKE ?",new String[]{"%" + search + "%"});
+            ToastService.showToast(this, String.valueOf(cursor.getCount()));
+            mRecycler.setAdapter(new TaxiAdapter(cursor, this));
+        }catch (Exception e){
+            ToastService.showToast(this, e.getMessage());
+        }
+        //getSupportLoaderManager().initLoader(HOTELS_LOADER_ID, null, null);
+
+    }
+
 }

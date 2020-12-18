@@ -2,6 +2,8 @@ package admin.build1.ui.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.LoaderManager;
@@ -18,6 +20,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import admin.build1.AddHotel;
 import admin.build1.AddSight;
@@ -25,6 +28,7 @@ import admin.build1.R;
 import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaCursorLoader;
 import admin.build1.database.TraveliaDatabaseHelper;
+import admin.build1.ui.adapter.HotelsAdapter;
 import admin.build1.ui.adapter.SightsAdapter;
 
 public class AttractionsActivity extends AppCompatActivity
@@ -147,11 +151,28 @@ public class AttractionsActivity extends AppCompatActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == 2){
-            super.onActivityResult(requestCode, resultCode, data);
-            ToastService.showToast(this, "UPDATED DATA");
-        }
+        super.onActivityResult(requestCode, resultCode, data);
 
         startActivityForResult(new Intent(this, AttractionsActivity.class), 2);
     }
+
+    public void searchClick1(View view) {
+
+        SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
+        SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
+
+        TextView searchText = (TextView) findViewById(R.id.searchHotelText);
+        String search = searchText.getText().toString();
+
+        try{
+            Cursor cursor = db.rawQuery("SELECT * FROM SIGHTS WHERE Name LIKE ?",new String[]{"%" + search + "%"});
+            ToastService.showToast(this, String.valueOf(cursor.getCount()));
+            mRecycler.setAdapter(new SightsAdapter(cursor, this));
+        }catch (Exception e){
+            ToastService.showToast(this, e.getMessage());
+        }
+        //getSupportLoaderManager().initLoader(HOTELS_LOADER_ID, null, null);
+
+    }
+
 }

@@ -8,10 +8,30 @@
     tools:context=".ui.activity.CafeActivity"
     tools:showIn="@layout/app_bar_cafe">
 
+    <EditText
+        android:id="@+id/searchHotelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@+id/searchHotelText"
+        android:layout_toRightOf="@+id/searchHotelText"
+        android:onClick="searchClick2"
+        android:text="Search" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_below="@+id/button7"
+        android:layout_marginTop="-2dp" />
 
 </RelativeLayout>

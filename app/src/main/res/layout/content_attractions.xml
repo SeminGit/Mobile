@@ -13,11 +13,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <EditText
+        android:id="@+id/searchHotelText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_toEndOf="@+id/searchHotelText"
+        android:layout_toRightOf="@+id/searchHotelText"
+        android:onClick="searchClick1"
+        android:text="Search" />
+
     <Button
         android:id="@+id/button5"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CREATE"
-        android:onClick="createSight"/>
+        android:layout_marginStart="-2dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_toEndOf="@+id/button7"
+        android:layout_toRightOf="@+id/button7"
+        android:onClick="createSight"
+        android:text="CREATE" />
 
 </RelativeLayout>

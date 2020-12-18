@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class HotelsActivity extends AppCompatActivity
 
     private static final int HOTELS_LOADER_ID = 1;
     private int selectedId = 0;
+    private HotelsAdapter adapter;
 
     private RecyclerView mRecycler;
 
@@ -120,7 +122,8 @@ public class HotelsActivity extends AppCompatActivity
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        mRecycler.setAdapter(new HotelsAdapter(data, this));
+        this.adapter = new HotelsAdapter(data, this);
+        mRecycler.setAdapter(this.adapter);
     }
 
     @Override
@@ -201,6 +204,28 @@ public class HotelsActivity extends AppCompatActivity
 
         dbHelper.deleteById(db, "HOTELS", selectedId);
         startActivity(new Intent(this, HotelsActivity.class));
+
+    }
+
+    public void searchClick(View view) {
+
+        SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
+        SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
+
+        TextView searchText = (TextView) findViewById(R.id.searchHotelText);
+        String search = searchText.getText().toString();
+
+        try{
+            Cursor cursor = db.rawQuery("SELECT * FROM HOTELS WHERE Name LIKE ?",new String[]{"%" + search + "%"});
+                    //db.rawQuery("SELECT Name, CONTACTS FROM HOTELS WHERE Name='Name2'", null);
+                    //db.query("HOTELS",
+                    //new String[]{"NAME", "CONTACTS", "IMAGE_RESOURCE_ID", "IMAGE_RESOURCE_ID2"}, "Name LIKE ?",new String[]{"%" + search + "%"}, null, null, null);
+            ToastService.showToast(this, String.valueOf(cursor.getCount()));
+            mRecycler.setAdapter(new HotelsAdapter(cursor, this));
+        }catch (Exception e){
+            ToastService.showToast(this, e.getMessage());
+        }
+        //getSupportLoaderManager().initLoader(HOTELS_LOADER_ID, null, null);
 
     }
 }

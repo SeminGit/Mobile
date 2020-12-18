@@ -2,6 +2,8 @@ package admin.build1.ui.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -19,11 +21,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import admin.build1.R;
 import admin.build1.Services.ToastService;
 import admin.build1.database.TraveliaCursorLoaderPark;
 import admin.build1.database.TraveliaDatabaseHelper;
+import admin.build1.ui.adapter.CafeAdapter;
 import admin.build1.ui.adapter.ParkAdapter;
 
 public class ParkActivity extends AppCompatActivity
@@ -148,6 +152,27 @@ public class ParkActivity extends AppCompatActivity
         ToastService.showToast(this, "UPDATED DATA");
 
         startActivityForResult(new Intent(this, ParkActivity.class), 4);
+    }
+
+    public void searchClick2(View view) {
+
+        SQLiteOpenHelper sightsDatabaseHelper = new TraveliaDatabaseHelper(this);
+        SQLiteDatabase db = sightsDatabaseHelper.getReadableDatabase();
+
+        TextView searchText = (TextView) findViewById(R.id.searchHotelText);
+        String search = searchText.getText().toString();
+
+        TraveliaDatabaseHelper.insertPark(db, "test", "text", 0,0,0);
+
+        try{
+            Cursor cursor = db.rawQuery("SELECT * FROM PARKS WHERE Name LIKE ?",new String[]{"%" + search + "%"});
+            ToastService.showToast(this, String.valueOf(cursor.getCount()));
+            mRecycler.setAdapter(new ParkAdapter(cursor, this));
+        }catch (Exception e){
+            ToastService.showToast(this, e.getMessage());
+        }
+        //getSupportLoaderManager().initLoader(HOTELS_LOADER_ID, null, null);
+
     }
 
 }
