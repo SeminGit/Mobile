@@ -10,10 +10,12 @@ import admin.build1.R;
 
 public class TraveliaDatabaseHelper extends SQLiteOpenHelper {
 
-    public static final String DB_NAME = "Travelia"; // the name of database
-    public static final int DB_VERSION = 1; // the version of the database
+    public static final String DB_NAME = "Travelia";
+    public static final int DB_VERSION = 1;
 
     public static volatile TraveliaDatabaseHelper sInstance;
+
+    public static imageTable imageTable;
 
     public static TraveliaDatabaseHelper getInstance(Context context) {
         if (sInstance == null) {
@@ -33,6 +35,7 @@ public class TraveliaDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         updateMyDatabase(db, 0, DB_VERSION);
+        imageTable = new imageTable(db);
     }
 
     @Override
@@ -248,7 +251,6 @@ public class TraveliaDatabaseHelper extends SQLiteOpenHelper {
             insertHotel(db, "Неман", "ул.С.Батория,8\n" + "79-17-00", R.drawable.neman, R.drawable.neman_2);
             insertHotel(db, "Кронон Парк Отель", "урочище Пышки\n" + "8(029)360-00-50", R.drawable.kronon, R.drawable.kronon_2);
             insertHotel(db, "Беларусь", "ул.Калиновского,1\n" + "74-07-80", R.drawable.belarus, R.drawable.belarus_2);
-
 
             db.execSQL("CREATE TABLE TAXI (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "NAME TEXT, "
