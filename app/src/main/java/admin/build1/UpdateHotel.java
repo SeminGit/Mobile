@@ -39,10 +39,7 @@ public class UpdateHotel extends AppCompatActivity {
         TextView contactView = (TextView) findViewById(R.id.updateItemContacts);
         String contact = contactView.getText().toString();
 
-        TraveliaDatabaseHelper databaseService = TraveliaDatabaseHelper.getInstance(this);
         SQLiteDatabase db = getBaseContext().openOrCreateDatabase(TraveliaDatabaseHelper.DB_NAME, MODE_PRIVATE, null);
-
-        int kittyImageId = R.drawable.kitty;
 
         ContentValues cv = new ContentValues();
         cv.put("NAME", name);
