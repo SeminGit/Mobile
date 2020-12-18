@@ -30,7 +30,7 @@
                     android:layout_gravity="center"
                     android:scaleType="centerCrop" />
 
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -103,7 +103,7 @@
                         android:src="@android:drawable/ic_menu_call"
                         android:layout_margin="5dp" />
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -130,7 +130,7 @@
                         android:src="@android:drawable/ic_dialog_alert"
                         android:layout_margin="5dp" />
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -159,7 +159,7 @@
                         android:src="@android:drawable/ic_dialog_map"
                         android:layout_margin="5dp" />
 
-                    <TextView
+                    <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -190,7 +190,7 @@
                 android:paddingRight="0dp"
                 android:paddingEnd="16dp">
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"

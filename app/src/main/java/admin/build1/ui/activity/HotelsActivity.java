@@ -1,5 +1,6 @@
 package admin.build1.ui.activity;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -28,9 +29,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.util.zip.Inflater;
+
 import admin.build1.AddHotel;
 import admin.build1.R;
 import admin.build1.Services.ToastService;
+import admin.build1.UpdateHotel;
 import admin.build1.database.TraveliaCursorLoader1;
 import admin.build1.database.TraveliaDatabaseHelper;
 import admin.build1.ui.adapter.HotelsAdapter;
@@ -42,6 +48,8 @@ public class HotelsActivity extends AppCompatActivity
 
     private static final int HOTELS_LOADER_ID = 1;
     private int selectedId = 0;
+    private String selectedName;
+    private String selectedContacts;
     private HotelsAdapter adapter;
 
     private RecyclerView mRecycler;
@@ -93,16 +101,16 @@ public class HotelsActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_attractions) {
-            Intent intent = new Intent(this,AttractionsActivity.class);
+            Intent intent = new Intent(this, AttractionsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_hotels) {
-            Intent intent1 = new Intent(this,HotelsActivity.class);
+            Intent intent1 = new Intent(this, HotelsActivity.class);
             startActivity(intent1);
         } else if (id == R.id.nav_cafe) {
-            Intent intent3 = new Intent(this,CafeActivity.class);
+            Intent intent3 = new Intent(this, CafeActivity.class);
             startActivity(intent3);
         } else if (id == R.id.nav_sundry) {
-            Intent intent2 = new Intent(this,SundryActivity.class);
+            Intent intent2 = new Intent(this, SundryActivity.class);
             startActivity(intent2);
         } else if (id == R.id.nav_map) {
             Intent intent4 = new Intent(Intent.ACTION_VIEW);
@@ -158,26 +166,28 @@ public class HotelsActivity extends AppCompatActivity
             if (cursor.moveToFirst()) {
                 String name = cursor.getString(0);
                 String text = cursor.getString(1);
+                selectedName = name;
+                selectedContacts = text;
                 int photoId = cursor.getInt(2);
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.card_hotels,
-                        (ViewGroup)findViewById(R.id.layout));
-                TextView namehotels = (TextView)layout.findViewById(R.id.text_card1);
+                        (ViewGroup) findViewById(R.id.layout));
+                TextView namehotels = (TextView) layout.findViewById(R.id.text_card1);
                 namehotels.setText(name);
-                TextView texthotels = (TextView)layout.findViewById(R.id.text_card);
+                TextView texthotels = (TextView) layout.findViewById(R.id.text_card);
                 texthotels.setText(text);
-                ImageView imagehotels = (ImageView)layout.findViewById(R.id.image_card);
+                ImageView imagehotels = (ImageView) layout.findViewById(R.id.image_card);
                 imagehotels.setImageResource(photoId);
 
-                AlertDialog.Builder builder= new AlertDialog.Builder(this);
-                builder. setView(layout);;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(layout);
+                ;
                 builder.show();
             }
             cursor.close();
             db.close();
 
-        }
-        catch (SQLiteException e) {
+        } catch (SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
@@ -190,6 +200,7 @@ public class HotelsActivity extends AppCompatActivity
 
         startActivityForResult(createItemIntent, 1);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -215,17 +226,30 @@ public class HotelsActivity extends AppCompatActivity
         TextView searchText = (TextView) findViewById(R.id.searchHotelText);
         String search = searchText.getText().toString();
 
-        try{
-            Cursor cursor = db.rawQuery("SELECT * FROM HOTELS WHERE Name LIKE ?",new String[]{"%" + search + "%"});
-                    //db.rawQuery("SELECT Name, CONTACTS FROM HOTELS WHERE Name='Name2'", null);
-                    //db.query("HOTELS",
-                    //new String[]{"NAME", "CONTACTS", "IMAGE_RESOURCE_ID", "IMAGE_RESOURCE_ID2"}, "Name LIKE ?",new String[]{"%" + search + "%"}, null, null, null);
+        try {
+            Cursor cursor = db.rawQuery("SELECT * FROM HOTELS WHERE Name LIKE ?", new String[]{"%" + search + "%"});
             ToastService.showToast(this, String.valueOf(cursor.getCount()));
             mRecycler.setAdapter(new HotelsAdapter(cursor, this));
-        }catch (Exception e){
+        } catch (Exception e) {
             ToastService.showToast(this, e.getMessage());
         }
         //getSupportLoaderManager().initLoader(HOTELS_LOADER_ID, null, null);
+
+    }
+
+    public void updateHotelMethod(View view) {
+
+
+        try{
+            Intent createItemIntent = new Intent(this, UpdateHotel.class);
+            createItemIntent.putExtra("id", selectedId);
+            createItemIntent.putExtra("name", selectedName);
+            createItemIntent.putExtra("contacts", selectedContacts);
+
+            startActivityForResult(createItemIntent, 10);
+        }catch (Exception e){
+            ToastService.showToast(this, e.getMessage());
+        }
 
     }
 }

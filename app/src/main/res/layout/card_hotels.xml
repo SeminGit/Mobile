@@ -16,7 +16,7 @@
             >
 
 
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -32,7 +32,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:scaleType="centerCrop" />
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -43,6 +43,13 @@
                 android:layout_below="@+id/image_card"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/button10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="UPDATE"
+                android:onClick="updateHotelMethod"/>
 
             <Button
                 android:id="@+id/deleteButton"

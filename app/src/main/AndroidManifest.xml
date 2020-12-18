@@ -11,7 +11,8 @@
         android:label=""
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddSight"></activity>
+        <activity android:name=".UpdateHotel"></activity>
+        <activity android:name=".AddSight" />
         <activity android:name=".AddHotel" />
 
         <receiver
