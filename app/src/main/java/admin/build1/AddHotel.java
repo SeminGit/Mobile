@@ -13,20 +13,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
+import admin.build1.Services.ImageService;
 import admin.build1.database.TraveliaDatabaseHelper;
 
 public class AddHotel extends AppCompatActivity {
     static final int GALLERY_REQUEST = 1;
-    private Bitmap selectedImgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_gallery);
+    private Bitmap selectedImgBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_hotel);
+        selectedImgBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_menu_gallery);
     }
 
-    public void addItem(View view) {
+    public void addItem(View view) throws NoSuchAlgorithmException {
 
         TextView nameView = (TextView)findViewById(R.id.hotel_name);
         String name = nameView.getText().toString();
@@ -39,11 +42,10 @@ public class AddHotel extends AppCompatActivity {
 
         int kittyImageId = R.drawable.kitty;
 
-        databaseService.insertHotel(db, name, contact,kittyImageId,kittyImageId);
+        databaseService.insertHotel(db, name, contact,kittyImageId,kittyImageId, ImageService.saveImage(selectedImgBitmap));
 
         setResult(1, new Intent());
         finish();
-
     }
 
     public void addImage(View view) {

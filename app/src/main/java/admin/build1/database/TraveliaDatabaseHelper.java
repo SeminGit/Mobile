@@ -35,7 +35,6 @@ public class TraveliaDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         updateMyDatabase(db, 0, DB_VERSION);
-        imageTable = new imageTable(db);
     }
 
     @Override
@@ -246,18 +245,21 @@ public class TraveliaDatabaseHelper extends SQLiteOpenHelper {
                     + "NAME TEXT, "
                     + "CONTACTS TEXT,"
                     + "IMAGE_RESOURCE_ID INTEGER,"
-                    + "IMAGE_RESOURCE_ID2 INTEGER);");
-            insertHotel(db, "Семашко", "ул.Антонова,10\n" + "75-02-99", R.drawable.semashco, R.drawable.semashco_2);
-            insertHotel(db, "Неман", "ул.С.Батория,8\n" + "79-17-00", R.drawable.neman, R.drawable.neman_2);
-            insertHotel(db, "Кронон Парк Отель", "урочище Пышки\n" + "8(029)360-00-50", R.drawable.kronon, R.drawable.kronon_2);
-            insertHotel(db, "Беларусь", "ул.Калиновского,1\n" + "74-07-80", R.drawable.belarus, R.drawable.belarus_2);
+                    + "IMAGE_RESOURCE_ID2 INTEGER,"
+                    + "IMAGE_NAME TEXT);"
+            );
+            insertHotel(db, "Семашко", "ул.Антонова,10\n" + "75-02-99", R.drawable.semashco, R.drawable.semashco_2, null);
+            insertHotel(db, "Неман", "ул.С.Батория,8\n" + "79-17-00", R.drawable.neman, R.drawable.neman_2, null);
+            insertHotel(db, "Кронон Парк Отель", "урочище Пышки\n" + "8(029)360-00-50", R.drawable.kronon, R.drawable.kronon_2, null);
+            insertHotel(db, "Беларусь", "ул.Калиновского,1\n" + "74-07-80", R.drawable.belarus, R.drawable.belarus_2, null);
 
             db.execSQL("CREATE TABLE TAXI (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + "NAME TEXT, "
                     + "NUMBER TEXT,"
                     + "CONTACT TEXT,"
                     + "CONTACTS TEXT,"
-                    + "IMAGE_RESOURCE_ID INTEGER);");
+                    + "IMAGE_RESOURCE_ID INTEGER);"
+            );
             insertTaxi(db, "Бертель", "+375295807858", "Короткий номер: 107\n",
                     "Короткий номер: 107\n" +
                             "Vel: +375 29 3407834 \n" +
@@ -341,12 +343,14 @@ public class TraveliaDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public static void insertHotel(SQLiteDatabase db, String name,
-                                   String contact, int resourceId, int resourceId2) {
+                                   String contact, int resourceId, int resourceId2, String imageName) {
         ContentValues sightsValues = new ContentValues();
+
         sightsValues.put("NAME", name);
         sightsValues.put("CONTACTS", contact);
         sightsValues.put("IMAGE_RESOURCE_ID", resourceId);
         sightsValues.put("IMAGE_RESOURCE_ID2", resourceId2);
+        sightsValues.put("IMAGE_NAME", imageName);
 
         db.insertOrThrow("HOTELS", null, sightsValues);
     }
