@@ -12,25 +12,28 @@
         android:id="@+id/recycler_view1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_below="@+id/searchHotelText"
+        android:layout_marginTop="-4dp" />
 
     <EditText
         android:id="@+id/searchHotelText"
-        android:layout_width="wrap_content"
+        android:layout_width="800px"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-2dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="SEARCH" />
 
     <Button
         android:id="@+id/button7"
-        android:layout_width="wrap_content"
+        android:layout_width="300px"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
         android:layout_toEndOf="@+id/searchHotelText"
         android:layout_toRightOf="@+id/searchHotelText"
-        android:text="Search"
-        android:onClick="searchClick"/>
+        android:onClick="searchClick"
+        android:text="Search" />
 
 </RelativeLayout>
