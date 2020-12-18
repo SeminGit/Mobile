@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Build11.iml" filepath="$PROJECT_DIR$/Build11.iml" group="Build11" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mobile.iml" filepath="$PROJECT_DIR$/.idea/modules/Mobile.iml" group="Mobile" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mobile-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mobile-app.iml" group="Mobile/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Build11/app" />
     </modules>
   </component>
